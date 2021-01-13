@@ -8,12 +8,18 @@ This is possible due to wire protocol compatibility implemented by Azure CosmosD
 
 ## Prerequisites ##
 
+#### MongoDB installation ###
 You should have an instance of MongoDB running, ONLY if you want to test the python code against a MongoDB instance. Check out - [Install MongoDB in Windows][mongodb-installation]. Note the MongoDB URL (e.g. mongodb://localhost:27017/) 
 
-You should have an instance of CosmosDB running, ONLY if you want to test the python code against a CosmosDB instance. Check out - [Install CosmosDB for MongoDB API in Azure][cosmosdb-mongoapi-installation]. Note the CosmosDB URL. You can find it from the Azure Portal, in your left side "Connection String" menu bar for the CosmosDB instance - ![CosmosDB URL](/images/cosmosdb-url.jpg)
+#### CosmosDB installation ####
+You should have an instance of CosmosDB running, ONLY if you want to test the python code against a CosmosDB instance. Check out - [Install CosmosDB for MongoDB API in Azure][cosmosdb-mongoapi-installation]. Note the CosmosDB URL. You can find it from the Azure Portal, in your left side "Connection String" menu bar for the CosmosDB instance as shown below.
 
-On the client 
+![CosmosDB URL](/images/cosmosdb-url.jpg)
+
+#### PYMONGO installation ####
+Now the machine where you run these sample python code, make sure you are running Python 3.6 or above and you have installed pymongo package. Details on [pymong installation is here][pymongo-installation]
 
 [azure-cosmosdb-docs]: <https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction>
 [mongodb-installation]: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/>
 [cosmosdb-mongoapi-installation]: <https://docs.microsoft.com/en-us/azure/cosmos-db/create-mongodb-flask#create-a-database-account>
+[pymongo-installation]: <https://pymongo.readthedocs.io/en/stable/installation.html#>
