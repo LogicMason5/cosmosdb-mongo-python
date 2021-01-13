@@ -3,7 +3,7 @@ import os
 import sys
 
 #MONGO_URL = "mongodb://localhost:27017/"
-#MONGO_URL = "mongodb://tbdemocosmosmongo:QPchq51HNg8RIuCyyX2sDwFKB4DOQYmom5U4vAlpTR1TtkdwGMuuIg97rRG3JINdX3lZgvi4g46uunxxHBs5rg==@tbdemocosmosmongo.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@tbdemocosmosmongo@"
+#MONGO_URL = "mongodb://mycosmosdb:dX3lZgvi4g46uunxxHBs5rg==@mycosmosdb.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@mycosmosdb@"
 #MONGO_DATABASE = "TBDocumentDB"
 #MONGO_COLLECTION = "UserComments"
 
