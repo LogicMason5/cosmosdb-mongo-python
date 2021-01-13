@@ -27,4 +27,4 @@ The source files are in [src folder]:[src-folder]
 [mongodb-installation]: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/>
 [cosmosdb-mongoapi-installation]: <https://docs.microsoft.com/en-us/azure/cosmos-db/create-mongodb-flask#create-a-database-account>
 [pymongo-installation]: <https://pymongo.readthedocs.io/en/stable/installation.html#>
-[src-folder] <https://github.com/tirtho/cosmosdb-mongo-python/src>
+[src-folder]: <https://github.com/tirtho/cosmosdb-mongo-python/src>
