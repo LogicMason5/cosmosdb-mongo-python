@@ -20,10 +20,11 @@ You should have an instance of CosmosDB running, ONLY if you want to test the py
 Now the machine where you run these sample python code, make sure you are running Python 3.6 or above and you have installed pymongo package. Details on [pymong installation is here][pymongo-installation]
 
 ## Code ##
-The source files are in ![src folder](/src)
+The source files are in [src folder]:[src]
 
 
 [azure-cosmosdb-docs]: <https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction>
 [mongodb-installation]: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/>
 [cosmosdb-mongoapi-installation]: <https://docs.microsoft.com/en-us/azure/cosmos-db/create-mongodb-flask#create-a-database-account>
 [pymongo-installation]: <https://pymongo.readthedocs.io/en/stable/installation.html#>
+[src] <https://github.com/tirtho/cosmosdb-mongo-python/src>
