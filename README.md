@@ -10,9 +10,7 @@ This is possible due to wire protocol compatibility implemented by Azure CosmosD
 
 You should have an instance of MongoDB running, ONLY if you want to test the python code against a MongoDB instance. Check out - [Install MongoDB in Windows][mongodb-installation]. Note the MongoDB URL (e.g. mongodb://localhost:27017/) 
 
-You should have an instance of CosmosDB running, ONLY if you want to test the python code against a CosmosDB instance. Check out - [Install CosmosDB for MongoDB API in Azure][cosmosdb-mongoapi-installation]. Note the CosmosDB URL. You can find it from the Azure Portal, in your left side "Connection String" menu bar for the CosmosDB instance.
-![CosmosDB URL](/images/logo.png)
-Format: ![Alt Text](CosmosDB URL)
+You should have an instance of CosmosDB running, ONLY if you want to test the python code against a CosmosDB instance. Check out - [Install CosmosDB for MongoDB API in Azure][cosmosdb-mongoapi-installation]. Note the CosmosDB URL. You can find it from the Azure Portal, in your left side "Connection String" menu bar for the CosmosDB instance - ![CosmosDB URL](/images/cosmosdb-url.jpg)
 
 On the client 
 
