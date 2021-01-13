@@ -19,6 +19,16 @@ You should have an instance of CosmosDB running, ONLY if you want to test the py
 #### PYMONGO installation ####
 Now the machine where you run these sample python code, make sure you are running Python 3.6 or above and you have installed pymongo package. Details on [pymong installation is here][pymongo-installation]
 
+#### Create Database and Collection ####
+Create the Database and Collection in MongoDB and/or CosmosDB on which you will the python code.
+Then, set your environment variable below - 
+
+1. MONGO_URL=<the URL you got from above>
+2. MONGO_DATABASE = <name of your database>
+3. MONGO_COLLECTION = <name of your collection>
+
+Note - In Windows commandline for control characters like '&' preceed it with '^', so that setting environment variable for MONGO_URL has no issue.
+
 ## Code ##
 The source files are in [source folder][src-folder]
 
