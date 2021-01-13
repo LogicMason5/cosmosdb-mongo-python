@@ -17,7 +17,7 @@ You should have an instance of CosmosDB running, ONLY if you want to test the py
 ![CosmosDB URL](/images/cosmosdb-url.jpg)
 
 #### PyMongo installation ####
-Now the machine where you run these sample python code, make sure you are running Python 3.6 or above and you have installed PyMongo package. Details on [pymong installation is here][pymongo-installation]
+Now the machine where you run these sample python code, make sure you are running Python 3.6 or above and you have installed PyMongo package. Details on [PyMongo installation is here][pymongo-installation]
 
 #### Create Database and Collection ####
 Create the Database and Collection in MongoDB and/or CosmosDB on which you will the python code.
