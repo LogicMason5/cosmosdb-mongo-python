@@ -1,4 +1,4 @@
-import MongoCosmosDBConnection as mc
+import CosmosDBMongoConnection as mc
 
 # Connect to the Mongo or CosmosDB Mongo API instance
 # from the environment variables and return the Collection
