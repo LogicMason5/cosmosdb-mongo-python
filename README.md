@@ -29,10 +29,18 @@ Then, set your environment variable below -
 
 Note - In Windows commandline for control characters like '&' preceed it with '^', so that setting environment variable for MONGO_URL has no issue.
 
+## Multi-document transaction for Cosmos DB Mongo 4.0 API support ##
+The Javascript file [changeFriendship.js][changeFriendship.js] shows how you can run multi-document updates in one transaction. Here two document updates will success in the transaction or it will rollback and none will be updated if failed.
+
+In order to run this Javascript code, get the connection string for the CosmosDB from the Azure Portal and from the Windows command line run
+> mongo.exe <connection string> changeFriendship.js
+
+Assume above, you have path to mongo.exe  (typically in 'Program Files\MongoDB\Server\4.4\bin') set and also 
+
 ## Code ##
 The source files are in [source folder][src-folder]
 
-
+[changeFriendship.js]: <https://github.com/tirtho/cosmosdb-mongo-python/changeFriendship.js>
 [azure-cosmosdb-docs]: <https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction>
 [mongodb-installation]: <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/>
 [cosmosdb-mongoapi-installation]: <https://docs.microsoft.com/en-us/azure/cosmos-db/create-mongodb-flask#create-a-database-account>
