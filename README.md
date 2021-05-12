@@ -23,7 +23,7 @@ Now the machine where you run these sample python code, make sure you are runnin
 Create the Database and Collection in MongoDB and/or CosmosDB on which you will the python code.
 Then, set your environment variable below - 
 
-1. MONGO_URL=\<the URL you got from above\>
+1. MONGO_URL = \<the URL you got from above\>
 2. MONGO_DATABASE = \<name of your database\>
 3. MONGO_COLLECTION = \<name of your collection\>
 
