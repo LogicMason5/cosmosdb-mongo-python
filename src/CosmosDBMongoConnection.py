@@ -1,82 +1,106 @@
-import pymongo
 import os
 import sys
+from typing import Tuple
+import pymongo
+from pymongo.collection import Collection
+from pymongo.database import Database
+from pymongo.mongo_client import MongoClient
 
-#MONGO_URL = "mongodb://localhost:27017/"
-#MONGO_URL = "mongodb://mycosmosdb:dX3lZgvi4g46uunxxHBs5rg==@mycosmosdb.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@mycosmosdb@"
-#MONGO_DATABASE = "TBDocumentDB"
-#MONGO_COLLECTION = "UserComments"
 
-mongo_url = os.getenv("MONGO_URL")
-mongo_database = os.getenv("MONGO_DATABASE", "")
-mongo_collection = os.getenv("MONGO_COLLECTION", "")
+class MongoConfig:
+    """Loads and validates MongoDB configuration from environment variables."""
 
-def environment_variables_empty():
-    # Verify if environment variables are empty
-    if not mongo_url:
-        sys.exit("MONGO_URL environment variable is not set. " +
-                 "Please set environments MONGO_URL, MONGO_DATABASE, MONGO_COLLECTION and then try again.")
-    if not mongo_database:
-        sys.exit("MONGO_DATABASE environment variable is not set. " +
-                 "Please set environments MONGO_URL, MONGO_DATABASE, MONGO_COLLECTION and then try again.")
-    if not mongo_collection:
-        sys.exit("MONGO_COLLECTION environment variable is not set. " +
-                 "Please set environments MONGO_URL, MONGO_DATABASE, MONGO_COLLECTION and then try again.")
-    return False
+    def __init__(self):
+        self.mongo_url: str = os.getenv("MONGO_URL", "")
+        self.mongo_database: str = os.getenv("MONGO_DATABASE", "")
+        self.mongo_collection: str = os.getenv("MONGO_COLLECTION", "")
 
-def connect():
-    # Connect to the MongoDB/CosmosDB instance
-    return pymongo.MongoClient(mongo_url)
+        self._validate()
 
-def list_databases(aClient):
-    # Display all the databases in the MongoDB/CosmosDB instance
-    print(aClient.list_database_names())
-    return
+    def _validate(self):
+        missing = []
+        if not self.mongo_url:
+            missing.append("MONGO_URL")
+        if not self.mongo_database:
+            missing.append("MONGO_DATABASE")
+        if not self.mongo_collection:
+            missing.append("MONGO_COLLECTION")
 
-def is_database_present(aClient):
-    # Check if the MONGO_DATABASE is present in the Server
-    dbList = aClient.list_database_names()
-    if mongo_database in dbList:
-        print("The " + mongo_database + " database exists.")
-        return True
-    else:
-        sys.exit("The " + mongo_database + " database DOS NOT exist. Create it first.")
+        if missing:
+            sys.exit(
+                f"Missing required environment variables: {', '.join(missing)}.\n"
+                "Please set them and try again."
+            )
 
-def get_database(aClient):
-    # Get the database
-    return aClient[mongo_database]
 
-def is_collection_present(aDB):
-    # Check if the MONGO_COLLECTION exists
-    if mongo_collection in aDB.list_collection_names():
-        print("The " + mongo_collection + " collection exists.")
-        return True
-    else:
-        sys.exit("The " +  mongo_collection + " collection DOES NOT exist in " + mongo_database + " database. Create it first.")
+class MongoConnector:
+    """Handles MongoDB connection and collection retrieval."""
 
-def get_collection(aDB):
-    # Get the collection    
-    return aDB[mongo_collection]
+    def __init__(self, config: MongoConfig):
+        self.config = config
+        self.client: MongoClient | None = None
 
-# Read environment variables, connect to server, database and return the collection
-def connectAndGetCollection():
-    # Get the connection urls from environment variables
-    # and check if any are empty. Program quits if empty
-    environment_variables_empty()
+    def connect(self) -> MongoClient:
+        """Create MongoDB client."""
+        try:
+            self.client = pymongo.MongoClient(self.config.mongo_url)
+            return self.client
+        except Exception as e:
+            sys.exit(f"Failed to connect to MongoDB: {e}")
 
-    # Connect to the server
-    theClient = connect()
-    # Print list of databases
-    list_databases(theClient)
-    # Check if the MONGO_DB database (from env variable)
-    # exists. If not, the program quits
-    is_database_present(theClient)
-    # Get the handle to the database
-    theDatabase = get_database(theClient)
-    # Check if the collection exists in the database, if not quit
-    is_collection_present(theDatabase)
-    # Get the handle to the collection
-    theCollection = get_collection(theDatabase)
-    return theCollection
-    
-   
+    def list_databases(self) -> list[str]:
+        """Return available databases."""
+        if not self.client:
+            raise RuntimeError("Mongo client not initialized.")
+        dbs = self.client.list_database_names()
+        print("Available databases:", dbs)
+        return dbs
+
+    def get_database(self) -> Database:
+        """Return database handle."""
+        if not self.client:
+            raise RuntimeError("Mongo client not initialized.")
+
+        dbs = self.list_databases()
+        if self.config.mongo_database not in dbs:
+            sys.exit(
+                f"Database '{self.config.mongo_database}' does not exist. "
+                "Create it first."
+            )
+
+        return self.client[self.config.mongo_database]
+
+    def get_collection(self, db: Database) -> Collection:
+        """Return collection handle."""
+        collections = db.list_collection_names()
+
+        if self.config.mongo_collection not in collections:
+            sys.exit(
+                f"Collection '{self.config.mongo_collection}' does not exist "
+                f"in database '{self.config.mongo_database}'. Create it first."
+            )
+
+        print(f"Collection '{self.config.mongo_collection}' found.")
+        return db[self.config.mongo_collection]
+
+    def connect_and_get_collection(self) -> Collection:
+        """Full pipeline: connect → validate → return collection."""
+        self.connect()
+        db = self.get_database()
+        collection = self.get_collection(db)
+        return collection
+
+
+def connect_and_get_collection() -> Collection:
+    """Convenience helper."""
+    config = MongoConfig()
+    connector = MongoConnector(config)
+    return connector.connect_and_get_collection()
+
+
+# Example usage
+if __name__ == "__main__":
+    collection = connect_and_get_collection()
+
+    print("Connected successfully.")
+    print("Collection:", collection.name)
