@@ -1,18 +1,33 @@
-import pymongo
 import CosmosDBMongoConnection as mc
 
-# Connect to the Mongo or CosmosDB Mongo API instance
-# from the environment variables and return the Collection
-theCollection = mc.connectAndGetCollection()
 
-# Query Database collection for item with comment field containing ....
-mongoQueryString = { 'comment': 'Do nothing' }
+def find_documents_by_comment(collection, comment_text: str):
+    """
+    Find documents where the comment field matches the given text.
+    """
+    query = {"comment": comment_text}
+    results = collection.find(query)
 
-result = theCollection.find(mongoQueryString)
-print("Listing all documents where 'comment': 'Do nothing' matches")
-for x in result:
-    print(x)
+    documents = list(results)
+
+    print(f"\nListing documents where comment = '{comment_text}'")
+    print(f"Total documents found: {len(documents)}\n")
+
+    for doc in documents:
+        print(doc)
 
 
+def main():
+    try:
+        # Connect to MongoDB / CosmosDB collection
+        collection = mc.connectAndGetCollection()
+
+        # Query documents
+        find_documents_by_comment(collection, "Do nothing")
+
+    except Exception as e:
+        print(f"Error occurred: {e}")
 
 
+if __name__ == "__main__":
+    main()
